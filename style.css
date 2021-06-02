@@ -47,7 +47,7 @@ body {
 #dataKind {
   font-weight: bold;
   display: grid;
-  grid-template-columns: 15% 15% 38% 15% 15%;
+  grid-template-columns: 15% 15% 40% 13% 15%;
   grid-column-gap: 0.5%;
 }
 
@@ -71,11 +71,35 @@ body {
   color: #373c51;
 }
 
+#graficData {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
 #dataGrafiek {
-  width: 60%;
+  height: 560px;
+}
+
+#dataRight {
+  background-color: white;
+}
+
+#dataRight > div {
+  background-color: #f9fafc;
+}
+
+#cognitiveData {
+  margin-bottom: 20px;
+  height: 20%;
 }
 
 #chartContainer {
-  width: 100%;
   padding: 1em;
+  height: 500px;
+  width: 95%;
+}
+
+#scrollDiv {
+  overflow-y: scroll;
+  height: 76%;
 }
