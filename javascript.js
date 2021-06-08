@@ -37,7 +37,7 @@ window.onload = function () {
     });
     //console.log(testData);
     /////////////////////Generated data (information about child)/////////////////////////////////////
-    let motorScore = ["Voorsprong > 1", "Normale motoriek", "Achterstand tussen 1 en 2 jaar", "Meer dan 2 jaar achterstand"];
+    let motorScore = ["Voorsprong meer dan 1 jaar", "Normale motoriek", "Achterstand tussen 1 en 2 jaar", "Meer dan 2 jaar achterstand"];
     const motorScoreRandom = motorScore[Math.floor(Math.random() * motorScore.length)];
     console.log(motorScoreRandom);
     const testDataChild = {
