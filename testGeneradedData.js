@@ -1,28 +1,46 @@
 window.onload = function () {
-  /////////////////////////////Fetch data from database//////////////////////////////////////////////
-  fetch("http://35.205.189.186/api/progress/progress/student/4")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (dataDB) {
-    console.log(dataDB);
-
+    //////////////////////////Generated data like te database//////////////////////////////////////////
+    const testDataExergame = [...Array(3).keys()].map(function (i) {
+      return {
+        id: i,
+        description: "descriptionp " + i,
+        competenceType: "competence type " + i,
+        label: "label " + i,
+        exerGameId: 1,
+        progress: [
+          new Date(2021, 5, 31),
+          new Date(2021, 1, 18),
+          new Date(2021, 1, 5),
+          new Date(2020, 11, 8),
+          new Date(2020, 11, 5),
+        ].map(function (date, index) {
+          return {
+            gameName: "game name " + i,
+            value: Math.floor(Math.random() * 30),
+            studentId: 1,
+            extraData: null,
+            measurementMoment: date,
+          };
+        }),
+      };
+    });
+    console.log(testDataExergame);
     /////////////////////Generated data (information about child)/////////////////////////////////////
-    let motorScore = ["Voorsprong meer dan 1 jaar", "Normale motoriek", "Achterstand tussen 1 en 2 jaar", "Meer dan 2 jaar achterstand"];
+    let motorScore = ["Voorsprong  meer dan 1 jaar", "Normale motoriek", "Achterstand tussen 1 en 2 jaar", "Meer dan 2 jaar achterstand"];
     const motorScoreRandom = motorScore[Math.floor(Math.random() * motorScore.length)];
 
     const testDataChild = {
-      id: 1,
-      name: "Julia van Leeuwe",
-      dateOfBirth: new Date((Math.random() * (2016 - 2012 + 1)) + 2012, (Math.random() * 12) + 1, (Math.random() * 30) + 1),
-      city: "Eindhoven",
-      gender: "Woman",
-      class: (Math.floor(Math.random() * (4 - 3 + 1)) + 3) + "A",
-      motorScore: motorScoreRandom,
+        id: 1,
+        name: "Julia van Leeuwe",
+        dateOfBirth: new Date((Math.random() * (2016 - 2012 + 1)) + 2012, (Math.random() * 12) + 1, (Math.random() * 30) + 1),
+        city: "Eindhoven",
+        gender: "Woman",
+        class: (Math.floor(Math.random() * (4 - 3 + 1)) + 3) + "A",
+        motorScore: motorScoreRandom,
     };
     // console.log(testDataChild);
     /////////////////////////////Change infromation child/////////////////////////////////////////////
-    document.getElementById("name").innerHTML = ": " + testDataChild.name; 
+    document.getElementById("name").innerHTML = ": " + testDataChild.name 
     document.getElementById("dateOfBirth").innerHTML = ": " + testDataChild.dateOfBirth.toLocaleDateString(); 
     document.getElementById("class").innerHTML = ": " + testDataChild.class;
     document.getElementById("score").innerHTML = testDataChild.motorScore;
@@ -64,29 +82,28 @@ window.onload = function () {
         dockInsidePlotArea: true,
         itemclick: toogleDataSeries,
         maxWidth: "300",
-    },
+      },
       //////////////////Test linechart generated lines like the database//////////////////////////////////
-      data: dataDB.map(function (item, i) {
+      data: testDataExergame.map(function (item, i) {
         const line = lines[i] ?? lines[0];
-        return { 
+        return {
           type: "line",
           showInLegend: true,
-          name: ": " + item.label,
+          name: ": " + item.description,
           markerColor: "black",
           lineDashType: line.dash,
           xValueFormatString: "DD MM, YYYY",
           color: line.color,
-          dataPoints: item.progress.map(function (progress){
+          dataPoints: item.progress.map(function (progressItem) {
             return {
-              x: new Date(progress.measurementMoment), 
-              y: progress.value}
-          })
-        }
+              x: progressItem.measurementMoment,
+              y: progressItem.value,
+            };
+          }),
+        };
       }),
     });
     chart.render(); //Plot line chart
-
-    //console.log(chart.data);
 
     ///////////////////////////////////Toggel lines///////////////////////////////////////////////////
     function toogleDataSeries(e) {
@@ -102,23 +119,23 @@ window.onload = function () {
     }
 
     //////////////////////////////////Fill scroll box/////////////////////////////////////////////////
-    dataDB.forEach(function createDataCognitive(item) {
-      console.log(item);
-      
-      item.progress.forEach(function progressItem(progress){
-        output = progress.measurementMoment.split("T"); //Get the only the date
-        gameName = progress.gameName.replace(/([A-Z || 1-9])/g, ' $1').trim() //Add spaces to the gamename
+    testDataExergame.forEach(createDataCognitive);
+    function createDataCognitive(item) {
+        //console.log(item);
 
-        progress.extraData.forEach(function scoreMovement(score){
-          document.getElementById("scrollDiv").innerHTML += 
-          "<div class=dataScrollDiv>"  + 
-            "<h1>" + gameName + "</h1>" + 
-            "<p>" + "Beweeg resultaat: " + score.value + " seconden" + "</p>" +
-            "<p>" + "Cognitief resultaat: " + progress.value + "</p>" +
-            "<p>" + "Datum: " + output[0] + "</p>" + 
-          "</div>"
-        })            
-      }) 
-    });
-  });
+        const progress = item.progress;
+        // console.log(progress);
+
+        progress.forEach(createDivCognitive);
+        function createDivCognitive(progressItem){
+            document.getElementById("scrollDiv").innerHTML += 
+              "<div class=dataScrollDiv>"  + 
+                "<h1>" + item.description + "</h1>" + 
+                "<p>" + "Beweeg resultaat: " + progressItem.value + "</p>" +
+                "<p>" + "Datum: " + progressItem.measurementMoment.toDateString() + "</p>" + 
+              "</div>"
+        }
+    }
 };
+
+  
