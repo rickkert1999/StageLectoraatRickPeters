@@ -68,10 +68,16 @@ window.onload = function () {
       //////////////////Test linechart generated lines like the database//////////////////////////////////
       data: dataDB.map(function (item, i) {
         const line = lines[i] ?? lines[0];
+        if (item.label == "Rekenen"){
+          exergameName = "Op een been balanseren";
+        } 
+        if (item.label == "Lezen"){
+          exergameName = "Balanseren op een object";
+        } 
         return { 
           type: "line",
           showInLegend: true,
-          name: ": " + item.label,
+          name: ": " + exergameName,
           markerColor: "black",
           lineDashType: line.dash,
           xValueFormatString: "DD MM, YYYY",
@@ -109,6 +115,8 @@ window.onload = function () {
         output = progress.measurementMoment.split("T"); //Get the only the date
         gameName = progress.gameName.replace(/([A-Z || 1-9])/g, ' $1').trim() //Add spaces to the gamename
 
+        
+
         progress.extraData.forEach(function scoreMovement(score){
           document.getElementById("scrollDiv").innerHTML += 
           "<div class=dataScrollDiv>"  + 
@@ -117,8 +125,12 @@ window.onload = function () {
             "<p>" + "Cognitief resultaat: " + progress.value + "</p>" +
             "<p>" + "Datum: " + output[0] + "</p>" + 
           "</div>"
-        })            
+        })  
+          Gemiddelde = score.value
+            
+
       }) 
+      console.log(Gemiddelde);
     });
   });
 };

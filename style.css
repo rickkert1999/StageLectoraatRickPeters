@@ -65,7 +65,7 @@ body {
   text-align: right;
 }
 
-#dashboard > div > div > button {
+button {
   background-color: #ffffff;
   border: 1px solid #dadada;
   border-radius: 6px;
