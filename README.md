@@ -16,5 +16,7 @@ To change the student, change the last digit in the api request.
 http://35.205.189.186/api/progress/progress/student/4
 ```
 
+For the dutch instruction manual go to this [document](https://docs.google.com/document/d/1N1Spa_YCWiNqgKmDPUlz-rqQdnNpHg2fEQCigkdzOtE/edit?usp=sharing).
+
 # License
 [MIT](https://choosealicense.com/licenses/mit/) License - Copyright (c) 2020 Clueless
